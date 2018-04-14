@@ -4,6 +4,9 @@
 # and the shell script real work. If you need conditional logic, write it in bash or make another shell script.
 # ------------------------------------------------------------------------------------------------------------------------
 
+# Specify the Kubernetes version to use.
+KUBERNETES_VERSION="1.9.2"
+KUBERNETES_CNI="0.6.0"
 
 # Disabling SELinux is not recommended and will be fixed later.
 sudo sed -i 's/^SELINUX=.*/SELINUX=disabled/g' /etc/sysconfig/selinux
@@ -31,8 +34,9 @@ sudo yum install -y \
      docker \
      socat \
      ebtables \
-     kubelet \
-     kubeadm \
+     kubelet-${KUBERNETES_VERSION} \
+     kubeadm-${KUBERNETES_VERSION} \
+     kubernetes-cni-${KUBERNETES_CNI} \
      epel-release
 
 # jq needs its own special yum install as it depends on epel-release
